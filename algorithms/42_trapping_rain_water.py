@@ -5,20 +5,22 @@ class Solution:
         :type height: List[int]
         :rtype: int
         """
+        stack = []
         water = 0
-        for i in range(len(height)-1):
-            max_left = 0
-            max_right = 0
-            j = i
-            while j >= 0:
-                max_left = max(max_left, height[j])
-                j -= 1
-            j = i
-            while j < len(height):
-                max_right = max(max_right, height[j])
-                j += 1
-            water += min(max_left, max_right) - height[i]
+        current = 0
+        while current < len(height):
+            while stack != [] and height[current] > height[stack[-1]]:
+                top = stack[-1]
+                stack.pop()
+                if stack == []:
+                    break
+                distance = current - stack[-1] - 1
+                bounded_height = min(height[current], height[stack[-1]]) - height[top]
+                water += distance*bounded_height
+            stack.append(current)
+            current += 1
         return water
+                
             
                 
              
