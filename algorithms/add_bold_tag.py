@@ -5,4 +5,6 @@ class Solution:
         :type dict: List[str]
         :rtype: str
         """
-        
+        for d in dict:
+            if d in s:
+                
